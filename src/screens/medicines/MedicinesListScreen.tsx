@@ -2,17 +2,14 @@ import React, { useCallback, useState } from 'react';
 import {
   View, Text, FlatList, TouchableOpacity, StyleSheet, Alert,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, type NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MedicineRepository } from '../../database/repositories/MedicineRepository';
 import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
 import { MedicineCard } from '../../components/MedicineCard';
-import type { Medicine, Schedule } from '../../types';
+import type { Medicine, Schedule, MedicinesStackParamList } from '../../types';
 
-type Props = {
-  navigation: any;
-  route?: any;
-};
+type Props = NativeStackScreenProps<MedicinesStackParamList, 'MedicinesList'>;
 
 type ListItem = {
   id: string; // chave única para FlatList
@@ -20,8 +17,8 @@ type ListItem = {
   schedules: Schedule[];
 };
 
-export const MedicinesScreen: React.FC<Props> = ({ navigation }) => {
-  const { colors } = useTheme();
+export const MedicinesListScreen: React.FC<Props> = ({ navigation }) => {
+  const theme = useTheme();
   const [items, setItems] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +44,7 @@ export const MedicinesScreen: React.FC<Props> = ({ navigation }) => {
   useFocusEffect(useCallback(() => { load(); }, [load]));
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <FlatList
         data={items}
         keyExtractor={(i) => i.id}
@@ -58,10 +55,10 @@ export const MedicinesScreen: React.FC<Props> = ({ navigation }) => {
         ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyIcon}>💊</Text>
-            <Text style={[styles.emptyTitle, { color: colors.text }]}>
+            <Text style={[styles.emptyTitle, { color: theme.colors.text }]}>
               Nenhum remédio cadastrado
             </Text>
-            <Text style={[styles.emptySub, { color: colors.textSecondary }]}>
+            <Text style={[styles.emptySub, { color: theme.colors.textSecondary }]}>
               Toque no botão + para adicionar seu primeiro medicamento.
             </Text>
           </View>
@@ -77,7 +74,7 @@ export const MedicinesScreen: React.FC<Props> = ({ navigation }) => {
 
       <TouchableOpacity
         onPress={() => navigation.navigate('MedicineForm', {})}
-        style={[styles.fab, { backgroundColor: colors.primary }]}
+        style={[styles.fab, { backgroundColor: theme.colors.primary }]}
         activeOpacity={0.85}
       >
         <Text style={styles.fabText}>+</Text>

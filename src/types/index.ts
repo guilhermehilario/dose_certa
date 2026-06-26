@@ -1,4 +1,5 @@
 // src/types/index.ts
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // ============================================
 // ENUMS
@@ -55,6 +56,13 @@ export interface Schedule {
   notificationId: string | null; // ID da notificação local agendada
 }
 
+export type MedicinesStackParamList = {
+  MedicinesList: undefined;
+  MedicineDetails: { medicineId: number };
+  MedicineForm: { medicineId?: number };
+};
+
+
 /** Dados para criação de um agendamento */
 export type CreateSchedule = Omit<Schedule, 'id' | 'notificationId'>;
 
@@ -92,3 +100,6 @@ export class DatabaseError extends Error {
     this.name = 'DatabaseError';
   }
 }
+
+export type MedicineDetailsProps = NativeStackScreenProps<MedicinesStackParamList, 'MedicineDetails'>;
+export type MedicineFormProps = NativeStackScreenProps<MedicinesStackParamList, 'MedicineForm'>;

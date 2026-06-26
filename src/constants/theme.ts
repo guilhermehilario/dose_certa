@@ -1,60 +1,30 @@
-// Paleta de cores baseada em verde (saúde) e azul (confiança)
-// Verde: associado a bem-estar, natureza, calma
-// Azul: transmite segurança, profissionalismo, confiança médica
-
 export const colors = {
-  // Primárias — Verde (ação principal, saúde)
-  primary: {
-    50: '#E8F5E9',
-    100: '#C8E6C9',
-    200: '#A5D6A7',
-    300: '#81C784',
-    400: '#66BB6A',
-    500: '#4CAF50', // Cor principal da marca
-    600: '#43A047',
-    700: '#388E3C',
-    800: '#2E7D32',
-    900: '#1B5E20',
-  },
-  // Secundárias — Azul (informação, confiança)
-  secondary: {
-    50: '#E3F2FD',
-    100: '#BBDEFB',
-    200: '#90CAF9',
-    300: '#64B5F6',
-    400: '#42A5F5',
-    500: '#2196F3',
-    600: '#1E88E5',
-    700: '#1976D2',
-    800: '#1565C0',
-    900: '#0D47A1',
-  },
-  // Neutros
-  neutral: {
-    50: '#FAFAFA',
-    100: '#F5F5F5',
-    200: '#EEEEEE',
-    300: '#E0E0E0',
-    400: '#BDBDBD',
-    500: '#9E9E9E',
-    600: '#757575',
-    700: '#616161',
-    800: '#424242',
-    900: '#212121',
-  },
-  // Semânticas
-  success: '#4CAF50',
-  warning: '#FF9800',
-  error: '#F44336',
-  info: '#2196F3',
-  background: '#FAFAFA',
-  surface: '#FFFFFF',
-  text: {
-    primary: '#212121',
-    secondary: '#757575',
-    disabled: '#BDBDBD',
-  },
-  border: '#E0E0E0',
+  // Marca
+  primary: '#2E7D5B',        // verde medicinal
+  secondary: '#3B82A6',      // azul complementar
+
+  // Superfícies
+  background: '#F5F7F6',     // fundo geral da tela
+  surface: '#FFFFFF',        // cards, modais, inputs
+
+  // Texto
+  text: '#1A2B2A',           // texto principal
+  textSecondary: '#6B7A79',  // labels, placeholders
+  textDisabled: '#B0BABA',
+
+  // Estados e feedback
+  danger: '#E53935',         // erros, excluir
+  success: '#2E7D5B',
+  warning: '#F59E0B',
+
+  // Estrutura
+  border: '#E1E6E4',
+  divider: '#E1E6E4',
+
+  // Específicos
+  fab: '#2E7D5B',
+  cardBg: '#FFFFFF',
+  overlay: 'rgba(0, 0, 0, 0.5)',
 };
 
 export const typography = {
@@ -68,13 +38,13 @@ export const typography = {
     sm: 14,
     md: 16,
     lg: 18,
-    xl: 20,
-    xxl: 24,
-    display: 32,
+    xl: 22,
+    xxl: 28,
   },
   fontWeight: {
     regular: '400' as const,
     medium: '500' as const,
+    semibold: '600' as const,
     bold: '700' as const,
   },
 };
@@ -89,9 +59,9 @@ export const spacing = {
 };
 
 export const borderRadius = {
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 16,
+  sm: 6,
+  md: 10,
+  lg: 14,
+  xl: 20,
   full: 9999,
 };

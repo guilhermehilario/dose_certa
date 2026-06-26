@@ -1,20 +1,29 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useMemo } from 'react';
 import { colors, typography, spacing, borderRadius } from '../constants/theme';
 
-// Define a interface do tema — facilita trocar tema no futuro (dark mode)
+// Cores padrão — garantem que o app não quebre caso falte algo no constants/theme
+const DEFAULT_COLORS = {
+  background: '#F5F7F6',
+  surface: '#FFFFFF',
+  primary: '#2E7D5B',
+  text: '#1A2B2A',
+  textSecondary: '#6B7A79',
+  border: '#E1E6E4',
+  danger: '#E53935',
+};
+
+// Mescla as cores existentes com os defaults (os existentes têm prioridade)
+const mergedColors = {
+  ...DEFAULT_COLORS,
+  ...colors,
+};
+
 export interface Theme {
-  colors: typeof colors;
+  colors: typeof mergedColors;
   typography: typeof typography;
   spacing: typeof spacing;
   borderRadius: typeof borderRadius;
 }
-
-export const theme: Theme = {
-  colors,
-  typography,
-  spacing,
-  borderRadius,
-};
 
 interface ThemeContextType {
   theme: Theme;
@@ -27,6 +36,13 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const theme = useMemo<Theme>(() => ({
+    colors: mergedColors,
+    typography,
+    spacing,
+    borderRadius,
+  }), []);
+
   return (
     <ThemeContext.Provider value={{ theme }}>
       {children}
@@ -34,7 +50,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   );
 };
 
-// Hook customizado para acessar o tema — evita boilerplate
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
