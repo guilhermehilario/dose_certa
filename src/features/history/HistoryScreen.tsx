@@ -7,12 +7,8 @@ export const HistoryScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: theme.colors.text.primary }]}>
-        Histórico
-      </Text>
-      <Text style={[styles.subtitle, { color: theme.colors.text.secondary }]}>
-        Seus lembretes de histórico aparecerão aqui
-      </Text>
+      <Text style={[styles.title, { color: theme.colors.text }]}>Histórico</Text>
+      <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>Seus lembretes de histórico aparecerão aqui</Text>
     </View>
   );
 };

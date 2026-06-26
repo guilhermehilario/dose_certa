@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, ActivityIndicator,
 } from 'react-native';
-import type { MedicineDetailsProps } from '../../types';
-import { useTheme } from '../../contexts/ThemeContext';
-import { MedicineRepository } from '../../database/repositories/MedicineRepository';
-import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
-import type { Medicine, Schedule } from '../../types';
+import type { MedicineDetailsProps } from '../../../types';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { MedicineRepository } from '../../../database/repositories/MedicineRepository';
+import { ScheduleRepository } from '../../../database/repositories/ScheduleRepository';
+import type { Medicine, Schedule } from '../../../types';
 
 const FORMAT_LABEL: Record<string, string> = {
   tablet: '💊 Comprimido',

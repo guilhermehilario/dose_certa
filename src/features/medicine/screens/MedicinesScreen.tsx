@@ -3,11 +3,11 @@ import {
   View, Text, FlatList, TouchableOpacity, StyleSheet, Alert,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useTheme } from '../../contexts/ThemeContext';
-import { MedicineRepository } from '../../database/repositories/MedicineRepository';
-import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
-import { MedicineCard } from '../../components/MedicineCard';
-import type { Medicine, Schedule } from '../../types';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { MedicineRepository } from '../../../database/repositories/MedicineRepository';
+import { ScheduleRepository } from '../../../database/repositories/ScheduleRepository';
+import { MedicineCard } from '../components/MedicineCard';
+import type { Medicine, Schedule } from '../../../types';
 
 type Props = {
   navigation: any;

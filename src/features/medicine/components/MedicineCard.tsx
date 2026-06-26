@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
-import type { Medicine, Schedule } from '../types';
+import { useTheme } from '../../../contexts/ThemeContext';
+import type { Medicine, Schedule } from '../../../types';
 
 interface MedicineCardProps {
   medicine: Medicine;

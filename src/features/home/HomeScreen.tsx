@@ -7,12 +7,8 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: theme.colors.text.primary }]}>
-        Hoje
-      </Text>
-      <Text style={[styles.subtitle, { color: theme.colors.text.secondary }]}>
-        Seus lembretes de hoje aparecerão aqui
-      </Text>
+      <Text style={[styles.title, { color: theme.colors.text }]}>Hoje</Text>
+      <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>Seus lembretes de hoje aparecerão aqui</Text>
     </View>
   );
 };

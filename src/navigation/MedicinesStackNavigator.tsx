@@ -5,7 +5,7 @@ import {
   MedicinesListScreen,
   MedicineDetailsScreen,
   MedicineFormScreen,
-} from '../screens/medicines';
+} from '../features/medicine';
 import type { MedicinesStackParamList } from '../types';
 
 const Stack = createNativeStackNavigator<MedicinesStackParamList>();

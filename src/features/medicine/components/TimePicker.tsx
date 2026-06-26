@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Modal, View, Text, TouchableOpacity, StyleSheet, Pressable,
 } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 interface TimePickerProps {
   visible: boolean;

@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../contexts/ThemeContext';
-import { HomeScreen } from '../screens/home/HomeScreen';
-import { HistoryScreen } from '../screens/history/HistoryScreen';
-import { SettingsScreen } from '../screens/settings/SettingsScreen';
+import { HomeScreen } from '../features/home/HomeScreen';
+import { HistoryScreen } from '../features/history/HistoryScreen';
+import { SettingsScreen } from '../features/settings/SettingsScreen';
 import { MedicinesStackNavigator } from './MedicinesStackNavigator';
 
 const Tab = createBottomTabNavigator();

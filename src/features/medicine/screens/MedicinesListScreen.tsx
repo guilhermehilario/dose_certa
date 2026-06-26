@@ -4,11 +4,11 @@ import {
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useTheme } from '../../contexts/ThemeContext';
-import { MedicineRepository } from '../../database/repositories/MedicineRepository';
-import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
-import { MedicineCard } from '../../components/MedicineCard';
-import type { Medicine, Schedule, MedicinesStackParamList } from '../../types';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { MedicineRepository } from '../../../database/repositories/MedicineRepository';
+import { ScheduleRepository } from '../../../database/repositories/ScheduleRepository';
+import { MedicineCard } from '../components/MedicineCard';
+import type { Medicine, Schedule, MedicinesStackParamList } from '../../../types';
 
 type Props = NativeStackScreenProps<MedicinesStackParamList, 'MedicinesList'>;
 

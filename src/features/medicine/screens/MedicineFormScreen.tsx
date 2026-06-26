@@ -3,13 +3,13 @@ import {
   View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert,
   ActivityIndicator, KeyboardAvoidingView, Platform,
 } from 'react-native';
-import type { CreateMedicine, MedicineFormProps } from '../../types';
-import { MedicineFormat } from '../../types';
-import { useTheme } from '../../contexts/ThemeContext';
-import { MedicineRepository } from '../../database/repositories/MedicineRepository';
-import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
-import { TimePicker } from '../../components/TimePicker';
-import { WeekdaySelector } from '../../components/WeekdaySelector';
+import type { CreateMedicine, MedicineFormProps } from '../../../types';
+import { MedicineFormat } from '../../../types';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { MedicineRepository } from '../../../database/repositories/MedicineRepository';
+import { ScheduleRepository } from '../../../database/repositories/ScheduleRepository';
+import { TimePicker } from '../components/TimePicker';
+import { WeekdaySelector } from '../components/WeekdaySelector';
 
 type ScheduleDraft = {
   tmpId: string;
@@ -37,9 +37,11 @@ const FORMATS: { value: MedicineFormat; label: string }[] = [
   { value: MedicineFormat.OTHER, label: '📦 Outro' },
 ];
 
+const createTmpId = (): string => `schedule-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
 const emptyForm = (): FormState => ({
   name: '', dosage: '', format: '', startDate: '', endDate: '', notes: '',
-  schedules: [{ tmpId: crypto.randomUUID(), time: '08:00', weekdays: [] }],
+  schedules: [{ tmpId: createTmpId(), time: '08:00', weekdays: [] }],
 });
 
 const formatDateInput = (raw: string): string => {
@@ -94,8 +96,8 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
           endDate: displayDate(m.endDate ?? ''),
           notes: m.notes ?? '',
           schedules: scheds.length
-            ? scheds.map((s) => ({ tmpId: crypto.randomUUID(), time: s.time, weekdays: s.weekdays }))
-            : [{ tmpId: crypto.randomUUID(), time: '08:00', weekdays: [] }],
+            ? scheds.map((s) => ({ tmpId: createTmpId(), time: s.time, weekdays: s.weekdays }))
+            : [{ tmpId: createTmpId(), time: '08:00', weekdays: [] }],
         });
       } finally {
         setLoading(false);
@@ -109,7 +111,7 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
   };
 
   const addSchedule = () => {
-    update('schedules', [...form.schedules, { tmpId: crypto.randomUUID(), time: '08:00', weekdays: [] }]);
+    update('schedules', [...form.schedules, { tmpId: createTmpId(), time: '08:00', weekdays: [] }]);
   };
 
   const removeSchedule = (idx: number) => {
