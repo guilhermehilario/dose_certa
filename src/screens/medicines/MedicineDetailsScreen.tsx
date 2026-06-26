@@ -9,8 +9,13 @@ import { ScheduleRepository } from '../../database/repositories/ScheduleReposito
 import type { Medicine, Schedule } from '../../types';
 
 const FORMAT_LABEL: Record<string, string> = {
-  pill: '💊 Comprimido', liquid: '🧴 Líquido', drops: '💧 Gotas',
-  injection: '💉 Injetável', other: '📦 Outro',
+  tablet: '💊 Comprimido',
+  capsule: '💊 Cápsula',
+  liquid: '🧴 Líquido',
+  drops: '💧 Gotas',
+  injection: '💉 Injetável',
+  cream: '🧴 Creme',
+  other: '📦 Outro',
 };
 const WEEKDAY_FULL = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
@@ -82,13 +87,8 @@ export const MedicineDetailsScreen: React.FC<MedicineDetailsProps> = ({ navigati
         <View style={styles.divider} />
 
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Período</Text>
-        <Text style={[styles.meta, { color: theme.colors.textSecondary }]}>
-          Início: {medicine.start_date ?? '—'}
-        </Text>
-        <Text style={[styles.meta, { color: theme.colors.textSecondary }]}>
-          Fim: {medicine.end_date ?? 'Indeterminado'}
-        </Text>
-
+        <Text style={[styles.meta, { color: theme.colors.textSecondary }]}>Início: {medicine.startDate ?? '—'}</Text>
+        <Text style={[styles.meta, { color: theme.colors.textSecondary }]}>Fim: {medicine.endDate ?? 'Indeterminado'}</Text>
         {medicine.notes ? (
           <>
             <View style={styles.divider} />

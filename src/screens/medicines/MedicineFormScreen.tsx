@@ -3,13 +3,13 @@ import {
   View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert,
   ActivityIndicator, KeyboardAvoidingView, Platform,
 } from 'react-native';
-import type { MedicineFormProps } from '../../types';
+import type { CreateMedicine, MedicineFormProps } from '../../types';
+import { MedicineFormat } from '../../types';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MedicineRepository } from '../../database/repositories/MedicineRepository';
 import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';
 import { TimePicker } from '../../components/TimePicker';
 import { WeekdaySelector } from '../../components/WeekdaySelector';
-import type { MedicineFormat } from '../../types';
 
 type ScheduleDraft = {
   tmpId: string;
@@ -28,11 +28,13 @@ type FormState = {
 };
 
 const FORMATS: { value: MedicineFormat; label: string }[] = [
-  { value: 'pill', label: '💊 Comprimido' },
-  { value: 'liquid', label: '🧴 Líquido' },
-  { value: 'drops', label: '💧 Gotas' },
-  { value: 'injection', label: '💉 Injetável' },
-  { value: 'other', label: '📦 Outro' },
+  { value: MedicineFormat.TABLET, label: '💊 Comprimido' },
+  { value: MedicineFormat.CAPSULE, label: '💊 Cápsula' },
+  { value: MedicineFormat.LIQUID, label: '🧴 Líquido' },
+  { value: MedicineFormat.DROPS, label: '💧 Gotas' },
+  { value: MedicineFormat.INJECTION, label: '💉 Injetável' },
+  { value: MedicineFormat.CREAM, label: '🧴 Creme' },
+  { value: MedicineFormat.OTHER, label: '📦 Outro' },
 ];
 
 const emptyForm = (): FormState => ({
@@ -65,7 +67,7 @@ const displayDate = (iso: string): string => {
 };
 
 export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, route }) => {
-  const { theme } = useTheme();
+  const theme = useTheme();
   const editingId = route.params?.medicineId;
 
   const [form, setForm] = useState<FormState>(emptyForm());
@@ -88,8 +90,8 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
           name: m.name,
           dosage: m.dosage ?? '',
           format: (m.format as MedicineFormat) ?? '',
-          startDate: displayDate(m.start_date ?? ''),
-          endDate: displayDate(m.end_date ?? ''),
+          startDate: displayDate(m.startDate ?? ''),
+          endDate: displayDate(m.endDate ?? ''),
           notes: m.notes ?? '',
           schedules: scheds.length
             ? scheds.map((s) => ({ tmpId: crypto.randomUUID(), time: s.time, weekdays: s.weekdays }))
@@ -131,6 +133,7 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
   const validate = (): boolean => {
     const e: Record<string, string> = {};
     if (!form.name.trim()) e.name = 'Nome é obrigatório';
+    if (!form.format) e.format = 'Formato é obrigatório';
     if (!form.startDate.trim()) e.startDate = 'Data de início é obrigatória';
     else if (!parseDate(form.startDate)) e.startDate = 'Data inválida (use DD/MM/AAAA)';
     if (form.endDate.trim() && !parseDate(form.endDate)) e.endDate = 'Data inválida';
@@ -146,25 +149,25 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
     if (!validate()) return;
     setSaving(true);
     try {
-      const payload = {
+      const payload: CreateMedicine = {
         name: form.name.trim(),
-        dosage: form.dosage.trim() || undefined,
-        format: (form.format || undefined) as MedicineFormat | undefined,
-        start_date: parseDate(form.startDate),
-        end_date: form.endDate ? parseDate(form.endDate) : undefined,
-        notes: form.notes.trim() || undefined,
+        dosage: form.dosage.trim(),
+        format: form.format as MedicineFormat,
+        startDate: parseDate(form.startDate),
+        endDate: form.endDate ? parseDate(form.endDate) : null,
+        notes: form.notes.trim() || null,
       };
 
       if (editingId) {
         await MedicineRepository.update(editingId, payload);
         await ScheduleRepository.deleteByMedicineId(editingId);
         for (const s of form.schedules) {
-          await ScheduleRepository.create({ medicine_id: editingId, time: s.time, weekdays: s.weekdays });
+          await ScheduleRepository.create({ medicineId: editingId, time: s.time, weekdays: s.weekdays });
         }
       } else {
         const id = await MedicineRepository.create(payload);
         for (const s of form.schedules) {
-          await ScheduleRepository.create({ medicine_id: id, time: s.time, weekdays: s.weekdays });
+          await ScheduleRepository.create({ medicineId: id, time: s.time, weekdays: s.weekdays });
         }
       }
       navigation.goBack();

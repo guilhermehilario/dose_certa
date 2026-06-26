@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 import {
   View, Text, FlatList, TouchableOpacity, StyleSheet, Alert,
 } from 'react-native';
-import { useFocusEffect, type NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useFocusEffect } from '@react-navigation/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MedicineRepository } from '../../database/repositories/MedicineRepository';
 import { ScheduleRepository } from '../../database/repositories/ScheduleRepository';

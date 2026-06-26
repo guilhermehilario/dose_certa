@@ -1,9 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '../contexts/ThemeContext';
-import { MedicinesListScreen } from '../screens/medicines/MedicinesListScreen';
-import { MedicineDetailsScreen } from '../screens/medicines/MedicineDetailsScreen';
-import { MedicineFormScreen } from '../screens/medicines/MedicineFormScreen';
+import {
+  MedicinesListScreen,
+  MedicineDetailsScreen,
+  MedicineFormScreen,
+} from '../screens/medicines';
 import type { MedicinesStackParamList } from '../types';
 
 const Stack = createNativeStackNavigator<MedicinesStackParamList>();
