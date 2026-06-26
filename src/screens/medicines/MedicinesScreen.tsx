@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
 
-export const HomeScreen: React.FC = () => {
+export const MedicinesScreen: React.FC = () => {
   const theme = useTheme();
 
   return (
     <View style={styles.container}>
       <Text style={[styles.title, { color: theme.colors.text.primary }]}>
-        Hoje
+        Medicamentos
       </Text>
       <Text style={[styles.subtitle, { color: theme.colors.text.secondary }]}>
         Seus lembretes de hoje aparecerão aqui

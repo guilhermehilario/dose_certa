@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { colors, typography, spacing, borderRadius } from './theme';
+import { colors, typography, spacing, borderRadius } from '../constants/theme';
 
 // Define a interface do tema — facilita trocar tema no futuro (dark mode)
 export interface Theme {

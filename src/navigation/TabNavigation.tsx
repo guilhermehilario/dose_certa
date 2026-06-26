@@ -4,7 +4,7 @@ import { HomeScreen } from '../screens/home/HomeScreen';
 import { MedicinesScreen } from '../screens/medicines/MedicinesScreen';
 import { HistoryScreen } from '../screens/history/HistoryScreen';
 import { SettingsScreen } from '../screens/settings/SettingsScreen';
-import { useTheme } from '../constants/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Define os tipos das rotas — navegação tipada
 export type RootTabParamList = {
