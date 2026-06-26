@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Alert,
+  View, Text, ScrollView, TextInput, TouchableOpacity, Alert,
   ActivityIndicator, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import type { CreateMedicine, MedicineFormProps } from '../../../types';
@@ -10,6 +10,7 @@ import { MedicineRepository } from '../../../database/repositories/MedicineRepos
 import { ScheduleRepository } from '../../../database/repositories/ScheduleRepository';
 import { TimePicker } from '../components/TimePicker';
 import { WeekdaySelector } from '../components/WeekdaySelector';
+import { globalStyles } from '../../../constants/globalStyles';
 
 type ScheduleDraft = {
   tmpId: string;
@@ -182,7 +183,7 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
 
   if (loading) {
     return (
-      <View style={[styles.center, { backgroundColor: theme.colors.background }]}>
+      <View style={[globalStyles.center, { backgroundColor: theme.colors.background }]}> 
         <ActivityIndicator color={theme.colors.primary} />
       </View>
     );
@@ -193,28 +194,28 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
       style={{ flex: 1, backgroundColor: theme.colors.background }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        <Text style={[styles.label, { color: theme.colors.text }]}>Nome *</Text>
+      <ScrollView contentContainerStyle={globalStyles.content} keyboardShouldPersistTaps="handled">
+        <Text style={[globalStyles.label, { color: theme.colors.text }]}>Nome *</Text>
         <TextInput
           value={form.name}
           onChangeText={(v) => update('name', v)}
           placeholder="Ex: Dipirona"
           placeholderTextColor={theme.colors.textSecondary}
-          style={[styles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.name ? theme.colors.danger : theme.colors.border }]}
+          style={[globalStyles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.name ? theme.colors.danger : theme.colors.border }]}
         />
-        {errors.name ? <Text style={[styles.errorText, { color: theme.colors.danger }]}>{errors.name}</Text> : null}
+        {errors.name ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.name}</Text> : null}
 
-        <Text style={[styles.label, { color: theme.colors.text }]}>Dosagem</Text>
+        <Text style={[globalStyles.label, { color: theme.colors.text }]}>Dosagem</Text>
         <TextInput
           value={form.dosage}
           onChangeText={(v) => update('dosage', v)}
           placeholder="Ex: 500mg"
           placeholderTextColor={theme.colors.textSecondary}
-          style={[styles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: theme.colors.border }]}
+          style={[globalStyles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: theme.colors.border }]}
         />
 
-        <Text style={[styles.label, { color: theme.colors.text }]}>Formato</Text>
-        <View style={styles.formatRow}>
+        <Text style={[globalStyles.label, { color: theme.colors.text }]}>Formato</Text>
+        <View style={globalStyles.formatRow}>
           {FORMATS.map((f) => {
             const active = form.format === f.value;
             return (
@@ -222,7 +223,7 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
                 key={f.value}
                 onPress={() => update('format', active ? '' : f.value)}
                 style={[
-                  styles.formatChip,
+                  globalStyles.formatChip,
                   {
                     backgroundColor: active ? theme.colors.primary : theme.colors.surface,
                     borderColor: active ? theme.colors.primary : theme.colors.border,
@@ -235,9 +236,9 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
           })}
         </View>
 
-        <View style={styles.row2}>
+        <View style={globalStyles.row2}>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.label, { color: theme.colors.text }]}>Data início *</Text>
+            <Text style={[globalStyles.label, { color: theme.colors.text }]}>Data início *</Text>
             <TextInput
               value={form.startDate}
               onChangeText={(v) => update('startDate', formatDateInput(v))}
@@ -245,12 +246,12 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
               placeholderTextColor={theme.colors.textSecondary}
               keyboardType="numeric"
               maxLength={10}
-              style={[styles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.startDate ? theme.colors.danger : theme.colors.border }]}
+              style={[globalStyles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.startDate ? theme.colors.danger : theme.colors.border }]}
             />
-            {errors.startDate ? <Text style={[styles.errorText, { color: theme.colors.danger }]}>{errors.startDate}</Text> : null}
+          {errors.startDate ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.startDate}</Text> : null}
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.label, { color: theme.colors.text }]}>Data fim</Text>
+            <Text style={[globalStyles.label, { color: theme.colors.text }]}>Data fim</Text>
             <TextInput
               value={form.endDate}
               onChangeText={(v) => update('endDate', formatDateInput(v))}
@@ -258,13 +259,13 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
               placeholderTextColor={theme.colors.textSecondary}
               keyboardType="numeric"
               maxLength={10}
-              style={[styles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.endDate ? theme.colors.danger : theme.colors.border }]}
+              style={[globalStyles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.endDate ? theme.colors.danger : theme.colors.border }]}
             />
-            {errors.endDate ? <Text style={[styles.errorText, { color: theme.colors.danger }]}>{errors.endDate}</Text> : null}
+            {errors.endDate ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.endDate}</Text> : null}
           </View>
         </View>
 
-        <Text style={[styles.label, { color: theme.colors.text }]}>Observações</Text>
+        <Text style={[globalStyles.label, { color: theme.colors.text }]}>Observações</Text>
         <TextInput
           value={form.notes}
           onChangeText={(v) => update('notes', v)}
@@ -272,33 +273,33 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
           placeholderTextColor={theme.colors.textSecondary}
           multiline
           numberOfLines={3}
-          style={[styles.input, styles.textarea, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: theme.colors.border }]}
+          style={[globalStyles.input, globalStyles.textarea, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: theme.colors.border }]}
         />
 
-        <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Horários *</Text>
+        <View style={globalStyles.sectionHeader}>
+          <Text style={[globalStyles.sectionTitle, { color: theme.colors.text }]}>Horários *</Text>
           <TouchableOpacity onPress={addSchedule}>
             <Text style={{ color: theme.colors.primary, fontWeight: '600' }}>+ Adicionar</Text>
           </TouchableOpacity>
         </View>
-        {errors.schedules ? <Text style={[styles.errorText, { color: theme.colors.danger }]}>{errors.schedules}</Text> : null}
+        {errors.schedules ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.schedules}</Text> : null}
 
         {form.schedules.map((s, idx) => (
-          <View key={s.tmpId} style={[styles.scheduleBlock, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
-            <View style={styles.scheduleTop}>
+          <View key={s.tmpId} style={[globalStyles.scheduleBlock, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
+            <View style={globalStyles.scheduleTop}>
               <TouchableOpacity
                 onPress={() => openTimePicker(idx)}
-                style={[styles.timeBtn, { borderColor: theme.colors.border }]}
+                style={[globalStyles.timeBtn, { borderColor: theme.colors.border }]}
               >
-                <Text style={[styles.timeValue, { color: theme.colors.primary }]}>{s.time}</Text>
+                <Text style={[globalStyles.timeValue, { color: theme.colors.primary }]}>{s.time}</Text>
                 <Text style={{ color: theme.colors.textSecondary, fontSize: 12 }}>alterar</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => removeSchedule(idx)} style={styles.removeBtn}>
+              <TouchableOpacity onPress={() => removeSchedule(idx)} style={globalStyles.removeBtn}>
                 <Text style={{ color: theme.colors.danger, fontSize: 20 }}>×</Text>
               </TouchableOpacity>
             </View>
 
-            <Text style={[styles.miniLabel, { color: theme.colors.textSecondary }]}>Dias da semana</Text>
+            <Text style={[globalStyles.miniLabel, { color: theme.colors.textSecondary }]}>Dias da semana</Text>
             <WeekdaySelector
               selected={s.weekdays}
               onChange={(days) => updateSchedule(idx, { weekdays: days })}
@@ -310,11 +311,11 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
         <TouchableOpacity
           onPress={handleSave}
           disabled={saving}
-          style={[styles.saveBtn, { backgroundColor: theme.colors.primary, opacity: saving ? 0.6 : 1 }]}
+          style={[globalStyles.saveBtn, { backgroundColor: theme.colors.primary, opacity: saving ? 0.6 : 1 }]}
         >
           {saving
             ? <ActivityIndicator color="#fff" />
-            : <Text style={styles.saveBtnText}>{editingId ? 'Salvar alterações' : 'Cadastrar remédio'}</Text>}
+            : <Text style={globalStyles.saveBtnText}>{editingId ? 'Salvar alterações' : 'Cadastrar remédio'}</Text>}
         </TouchableOpacity>
       </ScrollView>
 
@@ -337,24 +338,3 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
   );
 };
 
-const styles = StyleSheet.create({
-  content: { padding: 16, paddingBottom: 40 },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  label: { fontSize: 14, fontWeight: '600', marginTop: 14, marginBottom: 6 },
-  input: { borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15 },
-  textarea: { minHeight: 80, textAlignVertical: 'top' },
-  errorText: { fontSize: 12, marginTop: 4 },
-  row2: { flexDirection: 'row', gap: 12 },
-  formatRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  formatChip: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 22, marginBottom: 8 },
-  sectionTitle: { fontSize: 16, fontWeight: '700' },
-  scheduleBlock: { borderRadius: 12, padding: 14, borderWidth: 1, marginBottom: 12 },
-  scheduleTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 },
-  timeBtn: { flexDirection: 'row', alignItems: 'center', gap: 10, borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 8 },
-  timeValue: { fontSize: 22, fontWeight: '700', fontVariant: ['tabular-nums'] },
-  removeBtn: { padding: 6 },
-  miniLabel: { fontSize: 12, marginBottom: 6, marginTop: 4 },
-  saveBtn: { marginTop: 24, paddingVertical: 16, borderRadius: 12, alignItems: 'center' },
-  saveBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
-});

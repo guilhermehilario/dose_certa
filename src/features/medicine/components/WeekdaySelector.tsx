@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { globalStyles } from '../../../constants/globalStyles';
 
 const DAYS = [
   { key: 0, label: 'D' }, // domingo
@@ -28,7 +29,7 @@ export const WeekdaySelector: React.FC<WeekdaySelectorProps> = ({ selected, onCh
 
   return (
     <View>
-      <View style={styles.row}>
+      <View style={globalStyles.rowSpaceBetween}>
         {DAYS.map((d) => {
           const active = selected.includes(d.key);
           return (
@@ -36,7 +37,7 @@ export const WeekdaySelector: React.FC<WeekdaySelectorProps> = ({ selected, onCh
               key={d.key}
               onPress={() => toggle(d.key)}
               style={[
-                styles.day,
+                globalStyles.day,
                 {
                   backgroundColor: active ? theme.colors.primary : theme.colors.surface,
                   borderColor: active ? theme.colors.primary : theme.colors.border,
@@ -50,13 +51,7 @@ export const WeekdaySelector: React.FC<WeekdaySelectorProps> = ({ selected, onCh
           );
         })}
       </View>
-      {error ? <Text style={[styles.error, { color: theme.colors.danger }]}>{error}</Text> : null}
+      {error ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{error}</Text> : null}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
-  day: { flex: 1, aspectRatio: 1, borderRadius: 999, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5 },
-  error: { fontSize: 12, marginTop: 6 },
-});
