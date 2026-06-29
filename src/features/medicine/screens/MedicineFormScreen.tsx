@@ -248,7 +248,7 @@ export const MedicineFormScreen: React.FC<MedicineFormProps> = ({ navigation, ro
               maxLength={10}
               style={[globalStyles.input, { backgroundColor: theme.colors.surface, color: theme.colors.text, borderColor: errors.startDate ? theme.colors.danger : theme.colors.border }]}
             />
-          {errors.startDate ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.startDate}</Text> : null}
+            {errors.startDate ? <Text style={[globalStyles.errorText, { color: theme.colors.danger }]}>{errors.startDate}</Text> : null}
           </View>
           <View style={{ flex: 1 }}>
             <Text style={[globalStyles.label, { color: theme.colors.text }]}>Data fim</Text>

@@ -48,7 +48,8 @@ export const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, schedules,
 
       <View style={globalStyles.schedulesList}>
         {sortedSchedules.map((s) => (
-          <View key={s.id} style={[globalStyles.scheduleRow, { backgroundColor: theme.colors.background }]}>
+          <View key={s.id} style={[globalStyles.scheduleRow, { backgroundColor: theme.colors.background }]}
+          >
             <Text style={[globalStyles.timeText, { color: theme.colors.primary }]}>{s.time}</Text>
             <Text style={[globalStyles.daysText, { color: theme.colors.textSecondary }]} numberOfLines={1}>
               {s.weekdays.map((d) => WEEKDAY_SHORT[d]).join(' · ')}
